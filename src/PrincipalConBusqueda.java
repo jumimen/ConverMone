@@ -16,9 +16,6 @@ public class PrincipalConBusqueda {
     public static void main(String[] args) throws IOException, InterruptedException {
         Scanner escritura = new Scanner(System.in);
         int opcion = 0;
-        double cantidad = 0;
-        String monedaOrigen = "";
-        String monedaDestino = "";
         while (opcion != 7){
             System.out.println("""
                 **************************************************
@@ -37,6 +34,9 @@ public class PrincipalConBusqueda {
             if(opcion == 7){
                 break;
             }else{
+                String monedaOrigen = "";
+                String monedaDestino = "";
+                double cantidad = 0;
                 System.out.println("Digite la cantidad que quiere convertir");
                 cantidad =  escritura.nextDouble();
                 switch (opcion){
@@ -70,32 +70,17 @@ public class PrincipalConBusqueda {
                 }
                 String url_str = "https://v6.exchangerate-api.com/v6/c13901c49b8e52b594143010/latest/" + monedaOrigen;
 
-// Making Request
                 URL url = new URL(url_str);
                 HttpURLConnection request = (HttpURLConnection) url.openConnection();
                 request.connect();
-
-// Convert to JSON
                 JsonParser jp = new JsonParser();
                 JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
                 JsonObject jsonobj = root.getAsJsonObject();
-                //System.out.println(jsonobj);
-// Accessing object
-                //String req_result = jsonobj.get("result").getAsString();
 
                 JsonObject rates = jsonobj.getAsJsonObject("conversion_rates");
                 String req_result =  rates.get(monedaDestino).getAsString();
-                System.out.println(String.format("%s %.2f %s %s %s","$" ,Double.parseDouble(req_result) * cantidad , " (" ,  monedaDestino ,  ")"));
+                System.out.println(String.format("%s %.2f %s %s %s","$" ,Double.parseDouble(req_result) * cantidad , "(",monedaDestino,")"));
             }
         }
-
-
-//        HttpClient client = HttpClient.newHttpClient();
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create("https://v6.exchangerate-api.com/v6/c13901c49b8e52b594143010/latest/USD"))
-//                .build();
-//        HttpResponse<String> response = client
-//                .send(request, HttpResponse.BodyHandlers.ofString());
-//        System.out.println(response.body());
     }
 }
