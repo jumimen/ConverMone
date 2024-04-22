@@ -1,7 +1,7 @@
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
+import java.util.Scanner;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,24 +14,82 @@ import java.net.http.HttpResponse;
 
 public class PrincipalConBusqueda {
     public static void main(String[] args) throws IOException, InterruptedException {
-        String url_str = "https://v6.exchangerate-api.com/v6/c13901c49b8e52b594143010/latest/USD";
+        Scanner escritura = new Scanner(System.in);
+        int opcion = 0;
+        double cantidad = 0;
+        String monedaOrigen = "";
+        String monedaDestino = "";
+        while (opcion != 7){
+            System.out.println("""
+                **************************************************
+                    Sea bienvenido/a al Conversor de Divisas
+                1. Dólar (USD)         ==>   Peso Mexicano(MXN)
+                2. Peso Mexicano(MXD)  ==>   Dólar(USD)
+                3. Dólar (USD)         ==>   Real Brasileño(BRL)
+                4. Real Brasileño(BRL) ==>   Dólar(USD)
+                5. Dólar(USD)          ==>   Peso Colombiano(COP)
+                6. Peso Colombiano(COP ==>   Dólar(USD)
+                7. Salir
+                ***************************************************
+                          Digite una opción del 1-7
+                """);
+            opcion= escritura.nextInt();
+            if(opcion == 7){
+                break;
+            }else{
+                System.out.println("Digite la cantidad que quiere convertir");
+                cantidad =  escritura.nextDouble();
+                switch (opcion){
+                    case 1:
+                        monedaOrigen= "USD";
+                        monedaDestino = "MXN";
+                        break;
+                    case 2:
+                        monedaOrigen = "MXN";
+                        monedaDestino = "USD";
+                        break;
+                    case 3:
+                        monedaOrigen = "USD";
+                        monedaDestino = "BRL";
+                    case 4:
+                        monedaOrigen = "BRL";
+                        monedaDestino = "USD";
+                        break;
+                    case 5:
+                        monedaOrigen = "USD";
+                        monedaDestino = "COP";
+                        break;
+                    case 6:
+                        monedaOrigen = "COP";
+                        monedaDestino = "USD";
+                        break;
+                    case 7:
+                        break;
+                    default:
+                        System.out.println("Opción no valida");
+                }
+                String url_str = "https://v6.exchangerate-api.com/v6/c13901c49b8e52b594143010/latest/" + monedaOrigen;
 
 // Making Request
-        URL url = new URL(url_str);
-        HttpURLConnection request = (HttpURLConnection) url.openConnection();
-        request.connect();
+                URL url = new URL(url_str);
+                HttpURLConnection request = (HttpURLConnection) url.openConnection();
+                request.connect();
 
 // Convert to JSON
-        JsonParser jp = new JsonParser();
-        JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-        JsonObject jsonobj = root.getAsJsonObject();
-        //System.out.println(jsonobj);
+                JsonParser jp = new JsonParser();
+                JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+                JsonObject jsonobj = root.getAsJsonObject();
+                //System.out.println(jsonobj);
 // Accessing object
-        //String req_result = jsonobj.get("result").getAsString();
+                //String req_result = jsonobj.get("result").getAsString();
 
-        JsonObject rates = jsonobj.getAsJsonObject("conversion_rates");
-        String req_result = rates.get("MXN").getAsString();
-        System.out.println(req_result);
+                JsonObject rates = jsonobj.getAsJsonObject("conversion_rates");
+                String req_result =  rates.get(monedaDestino).getAsString();
+                System.out.println(String.format("%s %.2f %s %s %s","$" ,Double.parseDouble(req_result) * cantidad , " (" ,  monedaDestino ,  ")"));
+            }
+        }
+
+
 //        HttpClient client = HttpClient.newHttpClient();
 //        HttpRequest request = HttpRequest.newBuilder()
 //                .uri(URI.create("https://v6.exchangerate-api.com/v6/c13901c49b8e52b594143010/latest/USD"))
