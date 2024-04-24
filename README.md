@@ -24,11 +24,17 @@ La aplicación ofrece las siguientes características:
 - Conversión de divisas en tiempo real utilizando la API de Exchange-rate.
 - No permite opciones no númericas en la selección del menu y la cantidad.
 Imagenes.
+</br>
 -Menu.
+</br>
 ![Menu](Imagenes/menu.jpg)
+</br>
 -Funcionamiento.
+</br>
 ![Funcionamiento](Imagenes/funcionamiento.jpg)
+</br>
 -Salir.
+</br>
 ![Salir](Imagenes/salir.jpg).
 
 ## Tecnologías utilizadas
