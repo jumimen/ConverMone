@@ -49,4 +49,4 @@ Este proyecto fue desarrollado por:
 
 ## Conclusión
 
-El Conversor de Divisas es una herramienta útil para realizar conversiones de moneda de manera rápida y sencilla. Me ha permitido poner en practica varios conceptos enseñados en los cursos como la pob y uso de API. Espero poder aplicar mas conceptos en futuros desarrollos. Si tienes alguna pregunta, sugerencia o problema, no dudes en ponerte en contacto con el equipo de desarrollo.
+El Conversor de Divisas es una herramienta útil para realizar conversiones de moneda de manera rápida y sencilla. Me ha permitido poner en practica varios conceptos enseñados en los cursos como la pob y uso de API. Espero poder aplicar mas conceptos en futuros desarrollos. Si tienes alguna pregunta, sugerencia o problema, favor ponerse en contacto conmigo.Gracias.
